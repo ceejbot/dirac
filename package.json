@@ -1,0 +1,15 @@
+{
+  "name": "ansivetory",
+  "version": "0.0.0",
+  "description": "add and remove hosts from an ansible inventory",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec test.js"
+  },
+  "author": "C J Silverio <ceejceej@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "ini": "~1.3.4",
+    "yargs": "~3.27.0"
+  }
+}
