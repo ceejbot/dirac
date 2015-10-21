@@ -4,7 +4,7 @@ Add and remove hosts from ansible inventory files.
 
 Parses existing files & preserves whitespace & comments.
 
-[![on npm](http://img.shields.io/ceejbot/v/@ceejbot%2Fdirac.svg?style=flat)](https://www.npmjs.org/package/@ceejbot%2Fdirac)  [![Tests](http://img.shields.io/travis/ceejbot/dirac.svg?style=flat)](http://travis-ci.org/ceejbot/dirac)  
+[![on npm](http://img.shields.io/ceejbot/v/@ceejbot/dirac.svg?style=flat)](https://www.npmjs.org/package/@ceejbot/dirac)  [![Tests](http://img.shields.io/travis/ceejbot/dirac.svg?style=flat)](http://travis-ci.org/ceejbot/dirac)  
 ## Usage
 
 Install: `npm install -g @ceejbot/dirac`
