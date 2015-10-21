@@ -1,4 +1,4 @@
-# ansivetory
+# @ceejbot/dirac
 
 Add and remove hosts from ansible inventory files.
 
@@ -6,8 +6,12 @@ Parses existing files & preserves whitespace & comments.
 
 ## Usage
 
+Install: `npm install -g @ceejbot/dirac`
+
+Then run:
+
 ```
-index.js [--var name=val] [--group groupname] --host foo.example.com /path/to/
+dirac [--var name=val] [--group groupname] --host foo.example.com /path/to/
 inventory
 
 Options:
@@ -20,6 +24,10 @@ Options:
 ```
 
 You can specify as many `var` and `group` options as you need.
+
+## Notes
+
+The Dirac Communicator is James Blish's name for an ansible-like communication device.
 
 ## LICENSE
 
