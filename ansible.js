@@ -23,7 +23,6 @@ Inventory.prototype.parse = function parse()
 	var section;
 	var lines = data.split(/[\r\n]/g);
 
-
 	while (lines.length)
 	{
 		var line = lines.shift();
