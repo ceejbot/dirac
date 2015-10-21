@@ -81,10 +81,11 @@ Inventory.prototype.stringify = function stringify()
 
 Inventory.prototype.addHost = function addHost(host, groups, vars)
 {
+	if (!Array.isArray(groups)) groups = [groups];
+	if (!Array.isArray(vars)) vars = [vars];
 	var self = this;
 	var hostVal = host + (vars ? ' ' + vars.join(' ') : '');
 	hostVal = hostVal.trim();
-	if (!Array.isArray(groups)) groups = [groups];
 
 	groups.forEach(function(g)
 	{
@@ -103,7 +104,15 @@ Inventory.prototype.addHost = function addHost(host, groups, vars)
 			self.contents.push(section);
 		}
 
-		// TODO uniquify
+		for (var i = 0; i < section.items.length; i++)
+		{
+			if (section.items[i].indexOf(host) === 0)
+			{
+				section.items[i] = hostVal;
+				return;
+			}
+		}
+
 		section.items.push(hostVal);
 	});
 };

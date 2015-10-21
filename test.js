@@ -95,6 +95,18 @@ describe('dirac', function()
 		lines[1].must.match(/ var2=val2/);
 	});
 
+	it('addHost() replaces host entries & does not duplicate them', function()
+	{
+		var ipath = path.join(invdir, 'inventory1');
+		var inventory = new Inventory(ipath);
+		inventory.parse();
+
+		inventory.contents[0].items.length.must.equal(1);
+		inventory.addHost('host1', 'section1', ['var=val']);
+		inventory.contents[0].items.length.must.equal(1);
+		inventory.contents[0].items[0].must.match(/var=val$/);
+	});
+
 	it('removeHost() must remove the host from each group', function()
 	{
 		var inventory = new Inventory(path.join(invdir, 'inventory2'));
