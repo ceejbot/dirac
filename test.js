@@ -78,10 +78,10 @@ describe('dirac', function()
 
 		inventory.addHost('newhost', ['newgroup']);
 		inventory.secmap.must.have.property('newgroup');
-		inventory.secmap.newgroup.must.equal(6);
-		inventory.contents[5].must.equal('');
-		inventory.contents[6].must.be.an.object();
-		inventory.contents[6].name.must.equal('newgroup');
+		inventory.secmap.newgroup.must.equal(5);
+		inventory.contents[4].must.equal('');
+		inventory.contents[5].must.be.an.object();
+		inventory.contents[5].name.must.equal('newgroup');
 	});
 
 	it('addHost() sticks var definitions onto the end of host lines', function()
