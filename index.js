@@ -2,7 +2,6 @@
 
 var
 	Inventory = require('./ansible'),
-	fs        = require('fs'),
 	yargs     = require('yargs')
 	.option('host',
 	{

@@ -1,0 +1,9 @@
+[section1]
+host1
+removeme
+
+# this is a comment
+[section2]
+host2
+removeme
+host3

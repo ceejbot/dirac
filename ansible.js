@@ -1,26 +1,28 @@
-var fs = require('fs');
+var
+	assert = require('assert'),
+	fs     = require('fs')
+;
 
 var Inventory = module.exports = function Inventory(fpath)
 {
+	assert(fpath && typeof fpath === 'string', 'you must pass an inventory file path to the constructor');
 	this.path = fpath;
+	this.contents = [];
+	this.secmap = {};
 };
 
+Inventory.prototype.parsed = false;
 Inventory.prototype.path = null;
-Inventory.prototype.contents = [];
-Inventory.prototype.secmap = {};
+Inventory.prototype.contents = null;
+Inventory.prototype.secmap = null;
 
 Inventory.prototype.parse = function parse()
 {
-	var data;
-	try { data = fs.readFileSync(this.path, 'utf8'); }
-	catch (ex)
-	{
-		if (ex.code === 'ENOENT') return;
-		throw(ex);
-	}
-
+	if (this.parsed) return;
+	var data = fs.readFileSync(this.path, 'utf8');
 	var section;
 	var lines = data.split(/[\r\n]/g);
+
 
 	while (lines.length)
 	{
@@ -51,6 +53,8 @@ Inventory.prototype.parse = function parse()
 		else
 			this.contents.push(line);
 	}
+
+	this.parsed = true;
 };
 
 Inventory.prototype.stringify = function stringify()
@@ -58,18 +62,18 @@ Inventory.prototype.stringify = function stringify()
 	var result = [];
 	var entries = this.contents;
 
-	entries.forEach(function(item)
+	entries.forEach(function(entry)
 	{
-		if (!item)
-			result.push(item);
-		else if (typeof item === 'string')
-			result.push(item);
-		else if (!item.name)
-			result.push(JSON.stringify(item));
+		if (!entry)
+			result.push(entry);
+		else if (typeof entry === 'string')
+			result.push(entry);
+		else if (!entry.name)
+			result.push(JSON.stringify(entry));
 		else
 		{
-			result.push('[' + item.name + ']')
-			item.items.forEach(function(h) { if (h) result.push(h); })
+			result.push('[' + entry.name + ']');
+			entry.items.forEach(function(h) { if (h) result.push(h); });
 		}
 	});
 
@@ -79,8 +83,9 @@ Inventory.prototype.stringify = function stringify()
 Inventory.prototype.addHost = function addHost(host, groups, vars)
 {
 	var self = this;
-	var hostVal = host + ( vars ? ' ' + vars.join(' ') : '');
+	var hostVal = host + (vars ? ' ' + vars.join(' ') : '');
 	hostVal = hostVal.trim();
+	if (!Array.isArray(groups)) groups = [groups];
 
 	groups.forEach(function(g)
 	{
@@ -113,6 +118,6 @@ Inventory.prototype.removeHost = function removeHost(host)
 		section.items = section.items.filter(function(i)
 		{
 			return !i.match(host);
-		})
+		});
 	});
 };
