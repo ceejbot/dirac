@@ -11,7 +11,14 @@ Inventory.prototype.secmap = {};
 
 Inventory.prototype.parse = function parse()
 {
-	var data = fs.readFileSync(this.path, 'utf8');
+	var data;
+	try { data = fs.readFileSync(this.path, 'utf8'); }
+	catch (ex)
+	{
+		if (ex.code === 'ENOENT') return;
+		throw(ex);
+	}
+
 	var section;
 	var lines = data.split(/[\r\n]/g);
 
@@ -72,12 +79,24 @@ Inventory.prototype.stringify = function stringify()
 Inventory.prototype.addHost = function addHost(host, groups, vars)
 {
 	var self = this;
-	var hostVal = host + ' ' + vars.join(' ');
+	var hostVal = host + ( vars ? ' ' + vars.join(' ') : '');
 	hostVal = hostVal.trim();
 
 	groups.forEach(function(g)
 	{
-		var section = self.contents[self.secmap[g]];
+		var section;
+		if (self.secmap.hasOwnProperty(g))
+		{
+			section = self.contents[self.secmap[g]];
+		}
+		else
+		{
+			section = { name: g, items: [] };
+			if (self.contents.length > 0) self.contents.push(''); // blank line before new section
+			self.secmap[section.name] = self.contents.length;
+			self.contents.push(section);
+		}
+
 		// TODO uniquify
 		section.items.push(hostVal);
 	});

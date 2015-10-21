@@ -7,7 +7,8 @@ var
 	.option('host',
 	{
 		alias: 'h',
-		description: 'the host to add or remove'
+		description: 'the host to add or remove',
+		required: true
 	})
 	.option('remove',
 	{
@@ -18,15 +19,16 @@ var
 	{
 		alias: 'g',
 		description: 'one or more groups to add this host to',
-		array: true,
 		default: 'generic',
+		example: '--group monitoring --group web'
 	})
-	.option('vars',
+	.option('var',
 	{
 		alias: 'v',
-		description: 'host vars to set',
-		array: true
+		description: 'host vars to set; name=val format',
 	})
+	.help('help')
+	.usage('add and remove hosts from the given ansible inventory file\n$0 [--var name=val] [--group groupname] --host foo.example.com /path/to/inventory')
 	.demand(1)
 ;
 
@@ -34,6 +36,11 @@ if (require.main === module)
 {
     var argv = yargs.argv;
 	var ipath = argv._[0];
+
+	if (argv.help)
+	{
+		process.exit(0);
+	}
 
 	var inventory = new Inventory(ipath);
 	inventory.parse(ipath);
