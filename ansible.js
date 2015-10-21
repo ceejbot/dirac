@@ -97,7 +97,9 @@ Inventory.prototype.addHost = function addHost(host, groups, vars)
 		else
 		{
 			section = { name: g, items: [] };
-			if (self.contents.length > 0) self.contents.push(''); // blank line before new section
+			// blank line before new section but no runs of blanks
+			if (self.contents.length > 0 && self.contents[self.contents.length - 1] !== '')
+				self.contents.push('');
 			self.secmap[section.name] = self.contents.length;
 			self.contents.push(section);
 		}
