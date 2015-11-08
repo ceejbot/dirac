@@ -1,59 +1,57 @@
 var
-	assert = require('assert'),
-	fs     = require('fs')
+	Lines  = require('./line-stream'),
+	stream = require('stream'),
+	util   = require('util')
 ;
 
-var Inventory = module.exports = function Inventory(fpath)
+var Inventory = module.exports = function Inventory(opts)
 {
-	assert(fpath && typeof fpath === 'string', 'you must pass an inventory file path to the constructor');
-	this.path = fpath;
+	stream.Writable.call(this, opts);
 	this.contents = [];
 	this.secmap = {};
 };
+util.inherits(Inventory, stream.Writable);
 
-Inventory.prototype.parsed = false;
-Inventory.prototype.path = null;
 Inventory.prototype.contents = null;
 Inventory.prototype.secmap = null;
+Inventory.prototype.section = null;
 
-Inventory.prototype.parse = function parse()
+Inventory.prototype._write = function _write(data, encoding, callback)
 {
-	if (this.parsed) return;
-	var data = fs.readFileSync(this.path, 'utf8');
-	var section;
-	var lines = data.split(/[\r\n]/g);
-
-	while (lines.length)
+	var line = data.toString('utf8').replace(/\n$/, '');
+	if (!line || line.match(/^\s+$/))
 	{
-		var line = lines.shift();
-		if (!line || line.match(/^\s+$/))
-		{
-			this.contents.push('');
-			continue;
-		}
-
-		if (line.match(/^#/))
-		{
-			this.contents.push(line);
-			continue;
-		}
-
-		var matches = line.match(/^\[([^\]]+)\]$/);
-		if (matches)
-		{
-			section = { name: matches[1], items: [] };
-			this.secmap[section.name] = this.contents.length;
-			this.contents.push(section);
-			continue;
-		}
-
-		if (section)
-			section.items.push(line);
-		else
-			this.contents.push(line);
+		this.contents.push('');
+		return callback();
 	}
 
-	this.parsed = true;
+	if (line.match(/^#/))
+	{
+		this.contents.push(line);
+		return callback();
+	}
+
+	var matches = line.match(/^\[([^\]]+)\]$/);
+	if (matches)
+	{
+		this.section = { name: matches[1], items: [] };
+		this.secmap[this.section.name] = this.contents.length;
+		this.contents.push(this.section);
+		return callback();
+	}
+
+	if (this.section)
+		this.section.items.push(line);
+	else
+		this.contents.push(line);
+
+	callback();
+};
+
+Inventory.prototype.parse = function parse(src)
+{
+	var lines = new Lines();
+	src.pipe(lines).pipe(this);
 };
 
 Inventory.prototype.stringify = function stringify()
@@ -76,7 +74,7 @@ Inventory.prototype.stringify = function stringify()
 		}
 	});
 
-	return result.join('\n');
+	return result.join('\n') + '\n';
 };
 
 Inventory.prototype.addHost = function addHost(host, groups, vars)

@@ -12,11 +12,10 @@ Install: `npm install -g @ceejbot/dirac`
 Then run:
 
 ```
-dirac [--var name=val] [--group groupname] --host foo.example.com /path/to/
-inventory
+cat /path/to/
+inventory | dirac [--var name=val] [--group groupname] foo.example.com > outputfile
 
 Options:
-  --host, -h   the host to add or remove                              [required]
   --remove     remove this host from inventory; all other options ignored
                                                                        [boolean]
   --group, -g  one or more groups to add this host to       [default: "generic"]
@@ -29,6 +28,10 @@ You can specify as many `var` and `group` options as you need.
 ## Notes
 
 The Dirac Communicator is James Blish's name for an ansible-like communication device.
+
+## TODO
+
+Handle variables better.
 
 ## LICENSE
 

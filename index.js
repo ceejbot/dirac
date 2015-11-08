@@ -1,14 +1,8 @@
 #!/usr/bin/env node
 
 var
-	Inventory = require('./ansible'),
+	Inventory = require('./inventory'),
 	yargs     = require('yargs')
-	.option('host',
-	{
-		alias: 'h',
-		description: 'the host to add or remove',
-		required: true
-	})
 	.option('remove',
 	{
 		type: 'boolean',
@@ -27,26 +21,29 @@ var
 		description: 'host vars to set; name=val format',
 	})
 	.help('help')
-	.usage('add and remove hosts from the given ansible inventory file\n$0 [--var name=val] [--group groupname] --host foo.example.com /path/to/inventory')
+	.usage('add and remove hosts from the ansible inventory input stream\ncat /path/to/inventory | $0 [--var name=val] [--group groupname] foo.example.com > output')
 	.demand(1)
 ;
 
 if (require.main === module)
 {
     var argv = yargs.argv;
-	var ipath = argv._[0];
+	var host = argv._[0];
 
 	if (argv.help)
 	{
 		process.exit(0);
 	}
 
-	var inventory = new Inventory(ipath);
-	inventory.parse(ipath);
-	if (argv.remove)
-		inventory.removeHost(argv.h);
-	else
-		inventory.addHost(argv.h, argv.g, argv.v);
-	var output = inventory.stringify(inventory);
-	console.log(output);
+	var inventory = new Inventory();
+	inventory.once('finish', function()
+	{
+		if (argv.remove)
+			inventory.removeHost(host);
+		else
+			inventory.addHost(host, argv.g, argv.v);
+		var output = inventory.stringify(inventory);
+		console.log(output);
+	});
+	inventory.parse(process.stdin);
 }

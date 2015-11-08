@@ -1,0 +1,74 @@
+# Inventory file for various production services.
+# Groups are in alphabetical order (except for the couchdb groups).
+
+[all:vars]
+variables=true
+ansible_ssh_user=ubuntu
+
+[apex]
+apex.example.com
+
+[dashboard]
+dashboard-2.example.com
+
+[downloads]
+downloads-3.example.com
+
+[etcd]
+etcd.example.com
+
+[app-1]
+app-1.example.com node10=true
+
+[app2]
+app2.example.com
+
+[generic]
+generic-1.example.com
+generic-2.example.com
+
+[haproxy]
+db-loadbalancer-1.example.com backend_group=east
+db-loadbalancer-2.example.com backend_group=west
+
+[influxdb]
+influxdb-1.example.com
+influxdb-2.example.com
+influxdb-3.example.com
+
+[nagios]
+nagios.example.com
+
+[redis]
+redis-1.example.com role=primary
+redis-2.example.com role=primary
+redis-3.example.com role=primary
+redis-4.example.com role=primary
+redis-5.example.com role=primary
+redis-6.example.com role=replica
+redis-7.example.com role=primary
+
+[skimdb]
+skimdb-1.example.com id=deadbeef replication_host=true
+skimdb-2.example.com id=deadbeef
+skimdb-3.example.com id=deadbeef
+skimdb-4.example.com id=deadbeef
+skimdb-5.example.com id=deadbeef write_primary=true # raid_drives=true
+skimdb-6.example.com id=deadbeef zone=east
+
+[public-skimdb]
+public-skimdb-1.example.com id=deadbeef public_skimdb=true
+public-skimdb-2.example.com id=deadbeef public_skimdb=true
+
+[search]
+search-1.example.com id=deadbeef
+search-2.example.com id=deadbeef zone=east
+
+[tarball]
+tarball-1-spare.example.com
+tarball-2.example.com
+tarball-3.example.com backups=true
+tarball-4.example.com
+
+[tarsnap]
+tarsnap.example.com id=deadbeef
