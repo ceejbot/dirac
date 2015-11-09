@@ -3,31 +3,30 @@
 var
 	Inventory = require('./inventory'),
 	yargs     = require('yargs')
-	.option('remove',
-	{
+	.option('remove', {
 		type: 'boolean',
 		description: 'remove this host from inventory; all other options ignored'
 	})
-	.option('group',
-	{
+	.option('group', {
 		alias: 'g',
 		description: 'one or more groups to add this host to',
 		default: 'generic',
 		example: '--group monitoring --group web'
 	})
-	.option('var',
-	{
+	.option('var', {
 		alias: 'v',
 		description: 'host vars to set; name=val format',
 	})
+	.version(function() { return require('./package').version; })
+	.describe('version', 'show version information')
 	.help('help')
-	.usage('add and remove hosts from the ansible inventory input stream\ncat /path/to/inventory | $0 [--var name=val] [--group groupname] foo.example.com > output')
+	.usage('add and remove hosts from the ansible inventory input stream\ncat /path/to/inventory | dirac [--var name=val] [--group groupname] foo.example.com > output')
 	.demand(1)
-;
+	;
 
 if (require.main === module)
 {
-    var argv = yargs.argv;
+	var argv = yargs.argv;
 	var host = argv._[0];
 
 	if (argv.help)

@@ -5,6 +5,7 @@ Add and remove hosts from ansible inventory files.
 Parses existing files & preserves whitespace & comments.
 
 [![on npm](http://img.shields.io/npm/v/@ceejbot/dirac.svg?style=flat)](https://www.npmjs.org/package/@ceejbot/dirac)  [![Tests](http://img.shields.io/travis/ceejbot/dirac.svg?style=flat)](http://travis-ci.org/ceejbot/dirac)  
+
 ## Usage
 
 Install: `npm install -g @ceejbot/dirac`
@@ -12,14 +13,13 @@ Install: `npm install -g @ceejbot/dirac`
 Then run:
 
 ```
-cat /path/to/
-inventory | dirac [--var name=val] [--group groupname] foo.example.com > outputfile
+cat /path/to/inventory | dirac [--var name=val] [--group groupname] foo.example.com > output
 
 Options:
-  --remove     remove this host from inventory; all other options ignored
-                                                                       [boolean]
+  --remove     remove this host from inventory; all other options ignored [boolean]
   --group, -g  one or more groups to add this host to       [default: "generic"]
   --var, -v    host vars to set; name=val format
+  --version    show version information                                [boolean]
   --help       Show help                                               [boolean]
 ```
 

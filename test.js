@@ -6,7 +6,7 @@ var
 	fs        = require('fs'),
 	path      = require('path'),
 	Inventory = require('./inventory')
-;
+	;
 
 var invdir = path.join(__dirname, 'fixtures');
 

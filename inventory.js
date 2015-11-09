@@ -2,7 +2,7 @@ var
 	Lines  = require('./line-stream'),
 	stream = require('stream'),
 	util   = require('util')
-;
+	;
 
 var Inventory = module.exports = function Inventory(opts)
 {
