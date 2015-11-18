@@ -1,7 +1,7 @@
 {
   "name": "@ceejbot/dirac",
   "description": "add and remove hosts from an ansible inventory",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "C J Silverio <ceejceej@gmail.com>",
   "bin": {
     "dirac": "index.js"
