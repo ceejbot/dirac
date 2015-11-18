@@ -28,7 +28,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ceej/dirac.git"
+    "url": "git://github.com/ceejbot/dirac.git"
   },
   "scripts": {
     "lint": "eslint *.js",
