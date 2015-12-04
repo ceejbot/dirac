@@ -13,9 +13,11 @@
     "yargs": "~3.30.0"
   },
   "devDependencies": {
-    "eslint": "~1.10.1",
-    "mocha": "~2.3.3",
-    "must": "~0.13.1"
+    "eslint": "~1.10.3",
+    "istanbul": "~0.4.1",
+    "mocha": "~2.3.4",
+    "must": "~0.13.1",
+    "nyc": "~4.0.1"
   },
   "homepage": "https://github.com/ceejbot/dirac",
   "keywords": [
@@ -31,6 +33,7 @@
     "url": "git://github.com/ceejbot/dirac.git"
   },
   "scripts": {
+    "coverage": "nyc --reporter=text-summary npm test",
     "lint": "eslint *.js",
     "test": "mocha -R spec test.js",
     "travis": "npm run lint && npm test"
