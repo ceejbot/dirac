@@ -146,4 +146,18 @@ describe('dirac', function()
 		});
 		inventory.parse(instream);
 	});
+
+	it('does not add multiple newlines at the end of sections', function(done)
+	{
+		var inventory = new Inventory();
+		inventory.once('finish', function()
+		{
+			var output = inventory.stringify();
+			var matches = output.match(/\n{3}/);
+			demand(matches).be.null();
+			done();
+		});
+
+		inventory.parse(fs.createReadStream(path.join(invdir, 'manyblanklines'), 'ascii'));
+	});
 });

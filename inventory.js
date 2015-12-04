@@ -74,7 +74,9 @@ Inventory.prototype.stringify = function stringify()
 		}
 	});
 
-	return result.join('\n') + '\n';
+	var output =  result.join('\n') + '\n';
+	output = output.replace(/\n{3,}/g, '\n\n');
+	return output;
 };
 
 Inventory.prototype.addHost = function addHost(host, groups, vars)
