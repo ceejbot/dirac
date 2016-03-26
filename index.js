@@ -39,7 +39,8 @@ if (require.main === module)
 	{
 		if (argv.remove)
 			inventory.removeHost(host);
-		else {
+		else
+		{
 			var group = argv.g.indexOf(',') ? argv.g.split(',') : argv.g;
 			inventory.addHost(host, group, argv.v);
 		}
