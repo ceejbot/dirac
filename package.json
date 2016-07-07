@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "coveralls": "~2.11.9",
-    "eslint": "~2.10.2",
-    "mocha": "2.*",
+    "eslint": "~3.0.1",
+    "mocha": "~2.5.3",
     "must": "~0.13.1",
     "nyc": "~6.6.1"
   },
@@ -36,6 +36,6 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint *.js",
     "test": "nyc mocha -R spec test.js",
-    "travis": "npm run lint && npm test && npm run coverage"
+    "travis": "npm run lint && npm test"
   }
 }
