@@ -10,7 +10,7 @@
     "url": "https://github.com/ceejbot/dirac/issues"
   },
   "dependencies": {
-    "yargs": "~4.7.0"
+    "yargs": "~6.4.0"
   },
   "devDependencies": {
     "coveralls": "~2.11.9",
