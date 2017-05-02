@@ -1,5 +1,7 @@
 # @ceejbot/dirac
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ceejbot/dirac.svg)](https://greenkeeper.io/)
+
 Add and remove hosts from ansible inventory files.
 
 Parses existing files & preserves whitespace & comments.
