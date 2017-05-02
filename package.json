@@ -10,14 +10,14 @@
     "url": "https://github.com/ceejbot/dirac/issues"
   },
   "dependencies": {
-    "yargs": "~7.0.2"
+    "yargs": "~7.1.0"
   },
   "devDependencies": {
-    "coveralls": "~2.11.9",
-    "eslint": "~3.13.0",
-    "mocha": "~3.2.0",
+    "coveralls": "~2.13.1",
+    "eslint": "~3.19.0",
+    "mocha": "~3.3.0",
     "must": "~0.13.1",
-    "nyc": "~10.0.0"
+    "nyc": "~10.3.0"
   },
   "homepage": "https://github.com/ceejbot/dirac",
   "keywords": [
